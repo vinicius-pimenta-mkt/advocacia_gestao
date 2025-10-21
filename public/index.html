@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestão de Advocacia</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      window.location.href = '/dashboard.html';
+    } else {
+      window.location.href = '/login.html';
+    }
+  </script>
+</body>
+</html>
+

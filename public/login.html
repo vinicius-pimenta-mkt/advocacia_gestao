@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AZ Advocacia</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #B8860B 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-section h1 {
+      color: #B8860B;
+      font-size: 28px;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .logo-section p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: #B8860B;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #D4A574;
+      box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #D4A574 0%, #B8860B 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(212, 165, 116, 0.4);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      font-size: 13px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .remember-me input[type="checkbox"] {
+      margin-right: 8px;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      accent-color: #D4A574;
+    }
+
+    .remember-me label {
+      margin: 0;
+      cursor: pointer;
+      color: #666;
+      font-weight: normal;
+    }
+
+    .footer-text {
+      text-align: center;
+      color: #999;
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .spinner {
+      border: 3px solid #e0e0e0;
+      border-top: 3px solid #D4A574;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .info-box {
+      background: #FFF8DC;
+      border-left: 4px solid #D4A574;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #B8860B;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-section">
+      <div class="logo">
+        <img src="/logo-az.png" alt="AZ Advocacia">
+      </div>
+      <h1>AZ Advocacia</h1>
+      <p>Sistema de Gestão</p>
+    </div>
+
+    <div class="info-box">
+      <strong>Demo:</strong> admin / admin123
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Usuário</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          placeholder="Digite seu usuário"
+          required
+        >
+        <div class="error-message" id="usernameError"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="Digite sua senha"
+          required
+        >
+        <div class="error-message" id="passwordError"></div>
+      </div>
+
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" name="rememberMe">
+        <label for="rememberMe">Lembrar-me</label>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">
+        Entrar
+      </button>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="error-message" id="generalError" style="text-align: center; margin-top: 15px;"></div>
+    </form>
+
+    <div class="footer-text">
+      © 2025 AZ Advocacia<br>
+      Desenvolvido com ❤️ por Manus AI
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const loading = document.getElementById('loading');
+    const generalError = document.getElementById('generalError');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedUsername = localStorage.getItem('savedUsername');
+      const rememberMe = localStorage.getItem('rememberMe') === 'true';
+      
+      if (rememberMe && savedUsername) {
+        usernameInput.value = savedUsername;
+        document.getElementById('rememberMe').checked = true;
+      }
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      document.getElementById('usernameError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      generalError.textContent = '';
+      generalError.classList.remove('show');
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+
+      if (!username) {
+        document.getElementById('usernameError').textContent = 'Usuário é obrigatório';
+        return;
+      }
+
+      if (!password) {
+        document.getElementById('passwordError').textContent = 'Senha é obrigatória';
+        return;
+      }
+
+      loginBtn.disabled = true;
+      loading.style.display = 'block';
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Erro ao fazer login');
+        }
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        if (rememberMe) {
+          localStorage.setItem('savedUsername', username);
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          localStorage.removeItem('savedUsername');
+          localStorage.removeItem('rememberMe');
+        }
+
+        window.location.href = '/dashboard.html';
+
+      } catch (error) {
+        generalError.textContent = error.message;
+        generalError.classList.add('show');
+      } finally {
+        loginBtn.disabled = false;
+        loading.style.display = 'none';
+      }
+    });
+
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        loginForm.dispatchEvent(new Event('submit'));
+      }
+    });
+  </script>
+</body>
+</html>
+
