@@ -31,7 +31,6 @@ router.get('/', (req, res) => {
   query += ' ORDER BY created_at DESC';
 
   db.all(query, params, (err, processos) => {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao buscar processos' });
     }
@@ -45,7 +44,6 @@ router.get('/:id', (req, res) => {
   const db = getDb();
 
   db.get('SELECT * FROM processos WHERE id = ?', [id], (err, processo) => {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao buscar processo' });
     }
@@ -81,7 +79,6 @@ router.post('/', (req, res) => {
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [id, cliente_id, numero_processo, status, vara, comarca, descricao, data_inicio, data_fim],
     function(err) {
-      db.close();
       if (err) {
         if (err.message.includes('UNIQUE')) {
           return res.status(400).json({ error: 'Processo com este número já existe' });
@@ -113,7 +110,6 @@ router.put('/:id', (req, res) => {
      WHERE id = ?`,
     [numero_processo, status, vara, comarca, descricao, data_inicio, data_fim, id],
     function(err) {
-      db.close();
       if (err) {
         return res.status(500).json({ error: 'Erro ao atualizar processo' });
       }
@@ -131,7 +127,6 @@ router.delete('/:id', (req, res) => {
   const db = getDb();
 
   db.run('DELETE FROM processos WHERE id = ?', [id], function(err) {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao deletar processo' });
     }
