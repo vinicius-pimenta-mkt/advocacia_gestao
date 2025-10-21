@@ -19,7 +19,6 @@ router.get('/cliente/:cliente_id', (req, res) => {
     'SELECT * FROM documentos WHERE cliente_id = ? ORDER BY created_at DESC',
     [cliente_id],
     (err, documentos) => {
-      db.close();
       if (err) {
         return res.status(500).json({ error: 'Erro ao buscar documentos' });
       }
@@ -34,7 +33,6 @@ router.get('/:id', (req, res) => {
   const db = getDb();
 
   db.get('SELECT * FROM documentos WHERE id = ?', [id], (err, documento) => {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao buscar documento' });
     }
@@ -70,7 +68,6 @@ router.post('/', (req, res) => {
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [id, cliente_id, titulo, categoria, url_arquivo, nome_arquivo, tamanho_arquivo, tipo_mime, descricao],
     function(err) {
-      db.close();
       if (err) {
         return res.status(500).json({ error: 'Erro ao criar documento' });
       }
@@ -99,7 +96,6 @@ router.put('/:id', (req, res) => {
      WHERE id = ?`,
     [titulo, categoria, url_arquivo, nome_arquivo, tamanho_arquivo, tipo_mime, descricao, id],
     function(err) {
-      db.close();
       if (err) {
         return res.status(500).json({ error: 'Erro ao atualizar documento' });
       }
@@ -117,7 +113,6 @@ router.delete('/:id', (req, res) => {
   const db = getDb();
 
   db.run('DELETE FROM documentos WHERE id = ?', [id], function(err) {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao deletar documento' });
     }
