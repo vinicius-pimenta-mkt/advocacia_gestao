@@ -24,7 +24,6 @@ router.post('/login', (req, res) => {
     'SELECT * FROM users WHERE username = ? AND password = ?',
     [username, password],
     (err, user) => {
-      db.close();
 
       if (err) {
         return res.status(500).json({ error: 'Erro ao buscar usuário' });
