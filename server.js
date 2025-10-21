@@ -77,4 +77,3 @@ app.listen(PORT, HOST, () => {
   console.log(`🔐 Login: http://${HOST}:${PORT}/login`);
 });
 
-module.exports = app;
