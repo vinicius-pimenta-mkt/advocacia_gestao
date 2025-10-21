@@ -15,7 +15,6 @@ router.get('/', (req, res) => {
   const db = getDb();
 
   db.all('SELECT * FROM setores ORDER BY nome', (err, setores) => {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao buscar setores' });
     }
@@ -29,7 +28,6 @@ router.get('/:id', (req, res) => {
   const db = getDb();
 
   db.get('SELECT * FROM setores WHERE id = ?', [id], (err, setor) => {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao buscar setor' });
     }
@@ -55,7 +53,6 @@ router.post('/', (req, res) => {
     'INSERT INTO setores (id, nome, descricao) VALUES (?, ?, ?)',
     [id, nome, descricao],
     function(err) {
-      db.close();
       if (err) {
         if (err.message.includes('UNIQUE')) {
           return res.status(400).json({ error: 'Setor com este nome já existe' });
@@ -78,7 +75,6 @@ router.put('/:id', (req, res) => {
     'UPDATE setores SET nome = ?, descricao = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
     [nome, descricao, id],
     function(err) {
-      db.close();
       if (err) {
         return res.status(500).json({ error: 'Erro ao atualizar setor' });
       }
@@ -96,7 +92,6 @@ router.delete('/:id', (req, res) => {
   const db = getDb();
 
   db.run('DELETE FROM setores WHERE id = ?', [id], function(err) {
-    db.close();
     if (err) {
       return res.status(500).json({ error: 'Erro ao deletar setor' });
     }
