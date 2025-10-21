@@ -19,7 +19,7 @@ initDatabase();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || 'sua-chave-secreta';
+const JWT_SECRET = process.env.JWT_SECRET || '35b75ccd96165e47c2308a85d821bb4daa84c91efbd282895f176db2eeb945a7';
 
 // Middleware
 app.use(cors());
