@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'sua-chave-secreta';
+const JWT_SECRET = process.env.JWT_SECRET || '35b75ccd96165e47c2308a85d821bb4daa84c91efbd282895f176db2eeb945a7';
 const dbPath = path.join(__dirname, '../database/advocacia.db');
 
 function getDb() {
