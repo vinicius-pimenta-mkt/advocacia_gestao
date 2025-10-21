@@ -187,7 +187,6 @@ function initDatabase() {
     console.log('✅ Tabelas do banco de dados criadas/verificadas');
   });
 
-  db.close();
 }
 
 function getDb() {
